@@ -1,3 +1,15 @@
+-- =============================================================================
+-- NOVA Pharmacy — Sample Data
+-- CSF 212 Database Systems Mini Project
+-- =============================================================================
+-- Run after schema.sql has been executed.
+-- Populates the database with sample doctors, patients, drugs, pharmacies,
+-- prescriptions, contracts, and sales data.
+-- =============================================================================
+
+SET SERVEROUTPUT ON;
+
+-- Doctors
 EXEC Insert_Doctor('111111111111', 'Dr. Asha Reddy', 'Cardiology', 12);
 EXEC Insert_Doctor('222222222222', 'Dr. Ramesh Mehta', 'Orthopedics', 15);
 EXEC Insert_Doctor('333333333333', 'Dr. Leena Sharma', 'Pediatrics', 10);
@@ -5,7 +17,7 @@ EXEC Insert_Doctor('444444444444', 'Dr. Imran Qureshi', 'Dermatology', 8);
 EXEC Insert_Doctor('555555555555', 'Dr. Sunita Menon', 'Neurology', 14);
 
 
-
+-- Patients
 EXEC Insert_Patient('666666666666', 'Aarav Kumar', '101 MG Road, Bangalore', 30, '111111111111');
 EXEC Insert_Patient('777777777777', 'Maya Nair', '12 Park St, Mumbai', 25, '222222222222');
 EXEC Insert_Patient('888888888888', 'Rohan Desai', '3 Nehru Ave, Pune', 40, '333333333333');
@@ -18,15 +30,14 @@ EXEC Insert_Patient('456456456456', 'Kabir Shah', '13 Green Avenue, Bhopal', 38,
 EXEC Insert_Patient('567567567567', 'Neha Pandey', '101 Hilltop Lane, Jaipur', 41, '555555555555');
 
 
-
+-- Pharmaceutical Companies
 EXEC Insert_PharmaCompany('MediLife', '0801234567');
 EXEC Insert_PharmaCompany('CureWell', '0802345678');
 EXEC Insert_PharmaCompany('HealthPlus', '0803456789');
 EXEC Insert_PharmaCompany('BioZen', '0804567890');
 
 
-
-
+-- Drugs
 EXEC Insert_Drug('PainAway', 'MediLife', 'Ibuprofen 400mg');
 EXEC Insert_Drug('CoughGo', 'MediLife', 'Dextromethorphan 15mg');
 EXEC Insert_Drug('HealFast', 'CureWell', 'Amoxicillin 500mg');
@@ -39,14 +50,17 @@ EXEC Insert_Drug('HeartGuard', 'MediLife', 'Atenolol 50mg');
 EXEC Insert_Drug('BoneStrong', 'CureWell', 'Calcium + Vitamin D3');
 
 
+-- Pharmacies
 EXEC Insert_Pharmacy('Apollo RX', '22 Brigade Road, Bangalore', '0800000001');
 EXEC Insert_Pharmacy('WellCare', '11 Hill Road, Mumbai', '0800000002');
 
 
+-- Contracts
 EXEC Insert_Contract(1, 'Apollo RX', 'MediLife', 'Rajesh Kumar', 'Supply of general medicine', TO_DATE('2023-01-01','YYYY-MM-DD'), TO_DATE('2025-01-01','YYYY-MM-DD'));
 EXEC Insert_Contract(2, 'WellCare', 'CureWell', 'Anjali Verma', 'Seasonal flu vaccines', TO_DATE('2024-03-15','YYYY-MM-DD'), TO_DATE('2025-03-14','YYYY-MM-DD'));
 
 
+-- Prescriptions
 EXEC Insert_Prescription(101, '666666666666', '111111111111', TO_DATE('2025-04-01','YYYY-MM-DD'));
 EXEC Insert_Prescription(102, '777777777777', '222222222222', TO_DATE('2025-04-02','YYYY-MM-DD'));
 EXEC Insert_Prescription(103, '888888888888', '333333333333', TO_DATE('2025-04-03','YYYY-MM-DD'));
@@ -64,9 +78,7 @@ EXEC Insert_Prescription(114, '456456456456', '444444444444', TO_DATE('2025-04-1
 EXEC Insert_Prescription(115, '567567567567', '555555555555', TO_DATE('2025-04-15','YYYY-MM-DD'));
 
 
-
-
-
+-- Sales (drug stock and pricing at each pharmacy)
 EXEC Insert_Sales('Apollo RX', 'PainAway', 'MediLife', 12.5);
 EXEC Insert_Sales('Apollo RX', 'CoughGo', 'MediLife', 10.0);
 EXEC Insert_Sales('Apollo RX', 'HeartGuard', 'MediLife', 18.0);
@@ -91,11 +103,7 @@ EXEC Insert_Sales('WellCare', 'FluFree', 'CureWell', 31.0);
 EXEC Insert_Sales('WellCare', 'BoneStrong', 'CureWell', 23.0);
 
 
-
-
-
-
-
+-- Prescription line items (drugs on each prescription)
 EXEC Insert_PrescriptionDrug(101, 'PainAway', 'MediLife', 2);
 EXEC Insert_PrescriptionDrug(101, 'CoughGo', 'MediLife', 1);
 
@@ -129,7 +137,10 @@ EXEC Insert_PrescriptionDrug(114, 'HealFast', 'CureWell', 2);
 EXEC Insert_PrescriptionDrug(115, 'BoneStrong', 'CureWell', 1);
 
 
-exec print_contract_details('Apollo RX','MediLife');
+-- =============================================================================
+-- Example queries (uncomment or copy individually to test)
+-- =============================================================================
+\1('Apollo RX','MediLife');
 
 exec Prescription_Report('666666666666',TO_DATE('2025-04-02','YYYY-MM-DD'),TO_DATE('2025-04-07','YYYY-MM-DD'));
 
